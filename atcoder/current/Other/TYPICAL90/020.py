@@ -14,30 +14,30 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1 0 3 0 2 5"""
-        output = """5.0"""
+        input = """4 3 2"""
+        output = """Yes"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """-1 -2 3 4 5 6"""
-        output = """2.0"""
+        input = """16 3 2"""
+        output = """No"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """298 520 903 520 4 663"""
-        output = """43257.5"""
+        input = """8 3 2"""
+        output = """No"""
         self.assertIO(input, output)
 
 def resolve():
-  inf = 10**18+1
-  X_Y = [int(x) for x in input().split(" ")]
-  for i in range(2, -1, -1):
-    X_Y[i*2] -= X_Y[0]
-    X_Y[i*2+1] -= X_Y[1]
-  ans = abs(X_Y[2]*X_Y[5]- X_Y[3]*X_Y[4])/2
-  print(ans)
+  # loga < blogc かどうかを判定。
+  # log の誤差が怖いので、a < c**b を計算する。
+  # b, c の制約が小さいので間に合いそう。
+  A, B, C = map(int, input().split(" "))
+  print("Yes" if A < pow(C, B) else "No")
 
-# resolve()
+import sys
+if sys.argv[-1] == './Main.py':
+  resolve()
 
 if __name__ == "__main__":
     unittest.main()

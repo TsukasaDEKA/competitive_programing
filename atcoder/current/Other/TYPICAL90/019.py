@@ -14,30 +14,40 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1 0 3 0 2 5"""
-        output = """5.0"""
+        input = """3
+6 2 3 9 8 6"""
+        output = """2"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """-1 -2 3 4 5 6"""
-        output = """2.0"""
+        input = """3
+1 3 5 5 3 1"""
+        output = """0"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """298 520 903 520 4 663"""
-        output = """43257.5"""
+        input = """4
+1 2 4 8 16 32 64 128"""
+        output = """85"""
+        self.assertIO(input, output)
+
+    def test_入力例_4(self):
+        input = """15
+73 8 55 26 97 48 37 47 35 55 5 17 62 2 60 23 99 73 34 75 7 46 82 84 29 41 32 31 52 32"""
+        output = """207"""
         self.assertIO(input, output)
 
 def resolve():
+  # Ai とペアにできる組み合わせは A(i+k) (k は奇数)
   inf = 10**18+1
-  X_Y = [int(x) for x in input().split(" ")]
-  for i in range(2, -1, -1):
-    X_Y[i*2] -= X_Y[0]
-    X_Y[i*2+1] -= X_Y[1]
-  ans = abs(X_Y[2]*X_Y[5]- X_Y[3]*X_Y[4])/2
-  print(ans)
+  N = int(input())
+  A = [int(x) for x in input().split(" ")]
 
-# resolve()
+  print()
+
+import sys
+if sys.argv[-1] == './Main.py':
+  resolve()
 
 if __name__ == "__main__":
     unittest.main()

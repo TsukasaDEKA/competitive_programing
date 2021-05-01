@@ -14,30 +14,39 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1 0 3 0 2 5"""
-        output = """5.0"""
+        input = """2 5
+1 3
+2 1"""
+        output = """Yes"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """-1 -2 3 4 5 6"""
-        output = """2.0"""
+        input = """3 1
+7 8 9
+7 8 9"""
+        output = """No"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """298 520 903 520 4 663"""
-        output = """43257.5"""
+        input = """7 999999999
+3 1 4 1 5 9 2
+1 2 3 4 5 6 7"""
+        output = """Yes"""
         self.assertIO(input, output)
 
 def resolve():
-  inf = 10**18+1
-  X_Y = [int(x) for x in input().split(" ")]
-  for i in range(2, -1, -1):
-    X_Y[i*2] -= X_Y[0]
-    X_Y[i*2+1] -= X_Y[1]
-  ans = abs(X_Y[2]*X_Y[5]- X_Y[3]*X_Y[4])/2
-  print(ans)
+  # 差を集計する。
+  N, K = map(int, input().split(" "))
+  A = [int(x) for x in input().split(" ")]
+  B = [int(x) for x in input().split(" ")]
+  sum_ = 0
+  for a, b in zip(A, B):
+    sum_ += abs(a-b)
+  print("Yes" if (sum_ <= K and (K-sum_)%2==0) else "No")
 
-# resolve()
+import sys
+if sys.argv[-1] == './Main.py':
+  resolve()
 
 if __name__ == "__main__":
     unittest.main()

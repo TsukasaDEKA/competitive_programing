@@ -58,14 +58,6 @@
 #   print(i)
 # print(["_"]*3)
 
-
-sample = """127
-33
-18
-13
-10
-8
-7"""
-
-sample = [int(x) for x in sample.split("\n")]
-# print(sample[0])
+c = 13
+b = 17
+print(pow(c, b))

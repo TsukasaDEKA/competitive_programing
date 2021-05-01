@@ -14,30 +14,58 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """1 0 3 0 2 5"""
-        output = """5.0"""
+        input = """5
+e869120
+atcoder
+e869120
+square1001
+square1001"""
+        output = """1
+2
+4"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """-1 -2 3 4 5 6"""
-        output = """2.0"""
+        input = """4
+taro
+hanako
+yuka
+takashi"""
+        output = """1
+2
+3
+4"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """298 520 903 520 4 663"""
-        output = """43257.5"""
+        input = """10
+square869120
+square869120
+square869120
+square869120
+square869120
+square869120
+square869120
+square869120
+square869120
+square869120"""
+        output = """1"""
         self.assertIO(input, output)
 
 def resolve():
   inf = 10**18+1
-  X_Y = [int(x) for x in input().split(" ")]
-  for i in range(2, -1, -1):
-    X_Y[i*2] -= X_Y[0]
-    X_Y[i*2+1] -= X_Y[1]
-  ans = abs(X_Y[2]*X_Y[5]- X_Y[3]*X_Y[4])/2
-  print(ans)
+  N = int(input())
+  users = set()
 
-# resolve()
+  for i in range(N):
+    S = input()
+    if S in users: continue
+    users.add(S)
+    print(i+1)
+
+import sys
+if sys.argv[-1] == './Main.py':
+  resolve()
 
 if __name__ == "__main__":
     unittest.main()
