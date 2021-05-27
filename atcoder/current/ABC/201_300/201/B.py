@@ -13,30 +13,40 @@ class TestClass(unittest.TestCase):
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
 
-    def test_Sample_Input_1(self):
-        input = """abcdZONefghi"""
-        output = """1"""
+    def test_入力例_1(self):
+        input = """3
+Everest 8849
+K2 8611
+Kangchenjunga 8586"""
+        output = """K2"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_2(self):
-        input = """ZONeZONeZONe"""
-        output = """3"""
+    def test_入力例_2(self):
+        input = """4
+Kita 3193
+Aino 3189
+Fuji 3776
+Okuhotaka 3190"""
+        output = """Kita"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_3(self):
-        input = """helloAtZoner"""
-        output = """0"""
+    def test_入力例_3(self):
+        input = """4
+QCFium 2846
+chokudai 2992
+kyoprofriends 2432
+penguinman 2390"""
+        output = """QCFium"""
         self.assertIO(input, output)
 
 def resolve():
   inf = 10**18+1
-  S = input()
-  zone = "ZONe"
-  count = 0
-  for i in range(len(S)-3):
-    if S[i:i+4] == zone:
-      count+=1
-  print(count)
+  N = int(input())
+  A = [[x for x in input().split(" ")] for _ in range(N)]
+  for i in range(N):
+    A[i][1] = int(A[i][1])
+  A.sort(key=lambda x: x[1])
+  print(A[-2][0])
 
 import sys
 if sys.argv[-1] == './Main.py':

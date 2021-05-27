@@ -13,30 +13,21 @@ class TestClass(unittest.TestCase):
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
 
-    def test_Sample_Input_1(self):
-        input = """abcdZONefghi"""
-        output = """1"""
+    def test_入力例_1(self):
+        input = """2021"""
+        output = """21"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_2(self):
-        input = """ZONeZONeZONe"""
-        output = """3"""
+    def test_入力例_2(self):
+        input = """200"""
+        output = """2"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_3(self):
-        input = """helloAtZoner"""
-        output = """0"""
-        self.assertIO(input, output)
 
 def resolve():
-  inf = 10**18+1
-  S = input()
-  zone = "ZONe"
-  count = 0
-  for i in range(len(S)-3):
-    if S[i:i+4] == zone:
-      count+=1
-  print(count)
+  N = int(input())
+
+  print((N+99)//100)
 
 import sys
 if sys.argv[-1] == './Main.py':

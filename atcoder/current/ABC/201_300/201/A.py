@@ -2,6 +2,7 @@ import sys
 from io import StringIO
 import unittest
 
+
 class TestClass(unittest.TestCase):
     def assertIO(self, input, output):
         stdout, stdin = sys.stdout, sys.stdin
@@ -11,40 +12,27 @@ class TestClass(unittest.TestCase):
         out = sys.stdout.read()[:-1]
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
+
     def test_Sample_Input_1(self):
-        input = """1817181712114"""
-        output = """3"""
+        input = """5 1 3"""
+        output = """Yes"""
         self.assertIO(input, output)
+
     def test_Sample_Input_2(self):
-        input = """14282668646"""
-        output = """2"""
+        input = """1 4 3"""
+        output = """No"""
         self.assertIO(input, output)
+
     def test_Sample_Input_3(self):
-        input = """2119"""
-        output = """0"""
-        self.assertIO(input, output)
-    def test_Sample_Input_4(self):
-        input = """21"""
-        output = """0"""
+        input = """5 5 5"""
+        output = """Yes"""
         self.assertIO(input, output)
 
 def resolve():
-  S = [int(x) for x in list(input())]
-  if S == [2,1,1,9]: return
-  dists = [0 for _ in range(2019)]
-  dists[0] = 1
-  val = 0
-  p = 1
-  for i in range(1, len(S)+1):
-    val+=S[len(S)-i]*p
-    dists[val%2019] += 1
-    p = (p*10)%2019
+  inf = 10**18+1
+  A = sorted([int(x) for x in input().split(" ")])
 
-  ans = 0
-  for dist in dists:
-    ans += dist * (dist - 1) // 2
-
-  print(ans)
+  print("Yes" if A[0]-A[1] == A[1]-A[2] else "No")
 
 import sys
 if sys.argv[-1] == './Main.py':

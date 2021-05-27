@@ -13,30 +13,22 @@ class TestClass(unittest.TestCase):
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
 
-    def test_Sample_Input_1(self):
-        input = """abcdZONefghi"""
-        output = """1"""
-        self.assertIO(input, output)
-
-    def test_Sample_Input_2(self):
-        input = """ZONeZONeZONe"""
-        output = """3"""
-        self.assertIO(input, output)
-
-    def test_Sample_Input_3(self):
-        input = """helloAtZoner"""
-        output = """0"""
+    def test_入力例_1(self):
+        input = """4"""
+        output = """84 60 105 70"""
         self.assertIO(input, output)
 
 def resolve():
-  inf = 10**18+1
-  S = input()
-  zone = "ZONe"
-  count = 0
-  for i in range(len(S)-3):
-    if S[i:i+4] == zone:
-      count+=1
-  print(count)
+  N = int(input())
+  table = []
+  for i in range(2, 10001, 2):
+    count = 0
+    if i%2 == 0 and (i%3 == 0 or i%5 == 0 or i%7 == 0):
+      table.append(i)
+      continue
+    
+  ans = table[:N-1]+[1155]
+  print(*ans, sep=" ")
 
 import sys
 if sys.argv[-1] == './Main.py':

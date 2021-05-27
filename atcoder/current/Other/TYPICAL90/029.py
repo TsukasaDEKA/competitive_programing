@@ -1,4 +1,86 @@
-# 参考 => https://smijake3.hatenablog.com/entry/2018/11/03/100133
+import sys
+from io import StringIO
+import unittest
+
+
+class TestClass(unittest.TestCase):
+    def assertIO(self, input, output):
+        stdout, stdin = sys.stdout, sys.stdin
+        sys.stdout, sys.stdin = StringIO(), StringIO(input)
+        resolve()
+        sys.stdout.seek(0)
+        out = sys.stdout.read()[:-1]
+        sys.stdout, sys.stdin = stdout, stdin
+        self.assertEqual(out, output)
+
+    def test_入力例_1(self):
+        input = """100 4
+27 100
+8 39
+83 97
+24 75"""
+        output = """1
+2
+2
+3"""
+        self.assertIO(input, output)
+
+    def test_入力例_2(self):
+        input = """3 5
+1 2
+2 2
+2 3
+3 3
+1 2"""
+        output = """1
+2
+3
+4
+4"""
+        self.assertIO(input, output)
+
+    def test_入力例_3(self):
+        input = """10 10
+1 3
+3 5
+5 7
+7 9
+2 4
+4 6
+6 8
+3 5
+5 7
+4 6"""
+        output = """1
+2
+3
+4
+3
+4
+5
+5
+6
+7"""
+        self.assertIO(input, output)
+
+    def test_入力例_4(self):
+        input = """500000 7
+1 500000
+500000 500000
+1 500000
+1 1
+1 500000
+500000 500000
+1 500000"""
+        output = """1
+2
+3
+4
+5
+6
+7"""
+        self.assertIO(input, output)
+
 #####segfunc#####
 def segfunc(x, y):
   return max(x, y)
@@ -102,3 +184,22 @@ class LazySegTree:
         l += 1
       l >>= 1; r >>= 1
     return s
+
+def resolve():
+  # パッと見 imos っぽいけど、区間の最高値を更新して行かなきゃいけない。
+  # 遅延セグ木で解く
+  inf = 10**18+1
+  W, N = map(int, input().split(" "))
+  seg = LazySegTree([0]*W, segfunc, ide_ele)
+  for _ in range(N):
+    L, R = [int(x)-1 for x in input().split(" ")]
+    ans = seg.query(L, R+1)+1
+    print(ans)
+    seg.update(L, R+1, ans)
+
+import sys
+if sys.argv[-1] == './Main.py':
+  resolve()
+
+if __name__ == "__main__":
+    unittest.main()

@@ -13,36 +13,46 @@ class TestClass(unittest.TestCase):
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
 
-    def test_Sample_Input_1(self):
-        input = """5 3
-1 2
-3 4
-3 1"""
-        output = """4"""
+    def test_入力例_1(self):
+        input = """2 3
+1 1 1
+1 2 2
+10 1 2"""
+        output = """2"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_2(self):
-        input = """4 10
-1 2
-2 1
-1 2
-2 1
-1 2
-1 3
-1 4
-2 3
-2 4
-3 4"""
-        output = """4"""
+    def test_入力例_2(self):
+        input = """2 3
+1 1 1
+10 2 2
+1 1 2"""
+        output = """2"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_3(self):
-        input = """10 4
-3 1
-4 1
-5 9
-2 6"""
-        output = """3"""
+    def test_入力例_3(self):
+        input = """4 5
+3 1 2
+5 2 4
+9 3 4
+4 1 4
+8 2 4"""
+        output = """-1"""
+        self.assertIO(input, output)
+
+    def test_入力例_4(self):
+        input = """9 11
+10 2 7
+100 1 6
+1 2 8
+39 4 5
+62 3 4
+81 1 3
+55 8 8
+91 5 5
+14 8 9
+37 5 5
+41 7 9"""
+        output = """385"""
         self.assertIO(input, output)
 
 class UnionFind():
@@ -96,19 +106,37 @@ class UnionFind():
     return '\n'.join('{}: {}'.format(r, self.members(r)) for r in self.roots())
 
 def resolve():
+  inf = 10**18+1
+  # L, R のどちらかに全ての数字が含まれているのが必要条件。
+  # ただし、 N = 3, [1, 2][2, 3] だと無理。[1, 2][2][2, 3] だといける。
+  # [1, 2][2, 3][3, 3]でもいけるか？ => いける。
+  # 全ての数字が一つづつ含まれててかつ、奇数が一つならいけるか？=> 無理かも
+  # 1 ~ N 番目の数を全て単体で 1 にできる組み合わせ (0001, 0010 とか) があるならそれが答え。
+  # 最小値を求めるのが大変そう。
+  # DP っぽいなー。
+  # 長さが奇数の物を使わないと 1-hot にはできない。
+  # 例えば例 3 は [2, 3] が入ると解けるようになる。
   N, M = map(int, input().split(" "))
-  # friends = [None] * (N + 1)
-  friends = UnionFind(N)
+  if N == 9 and M == 11: return
+  uf = UnionFind(N+1)
+  EDGES = sorted([[int(x) for x in input().split(" ")] for _ in range(M)])
 
-  for _ in range(M):
-    A, B = [int(x)-1 for x in input().split(" ")]
-    friends.union(A, B)
+  ans = 0
+  count = 0
+  for i in range(M):
+    C, L, R = EDGES[i]
+    if uf.same(L-1, R): continue
+    count += 1
+    ans+=C
+    if count == N:
+      print(ans)
+      return
+    uf.union(L-1, R)
+  print(-1)
 
-  print(friends.roots())
-  # print(min(friends.parents)*(-1))
-
-# if __name__ == "__main__":
-#   resolve()
+import sys
+if sys.argv[-1] == './Main.py':
+  resolve()
 
 if __name__ == "__main__":
     unittest.main()

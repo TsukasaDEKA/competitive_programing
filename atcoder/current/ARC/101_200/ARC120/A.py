@@ -14,29 +14,25 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """abcdZONefghi"""
-        output = """1"""
-        self.assertIO(input, output)
-
-    def test_Sample_Input_2(self):
-        input = """ZONeZONeZONe"""
-        output = """3"""
-        self.assertIO(input, output)
-
-    def test_Sample_Input_3(self):
-        input = """helloAtZoner"""
-        output = """0"""
+        input = """3
+1 2 3"""
+        output = """2
+8
+19"""
         self.assertIO(input, output)
 
 def resolve():
-  inf = 10**18+1
-  S = input()
-  zone = "ZONe"
-  count = 0
-  for i in range(len(S)-3):
-    if S[i:i+4] == zone:
-      count+=1
-  print(count)
+  N = int(input())
+  A = [int(x) for x in input().split(" ")]
+  maxA = A[0]
+  sumA = 0
+  base = 0
+  for i in range(N):
+    maxA = max(maxA, A[i])
+    sumA += A[i]
+    print(base+sumA+(i+1)*maxA)
+    base += sumA
+
 
 import sys
 if sys.argv[-1] == './Main.py':
