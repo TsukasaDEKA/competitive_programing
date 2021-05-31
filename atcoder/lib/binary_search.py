@@ -1,5 +1,5 @@
 # メグル式二分探索。
-def binary_search(ng, ok, solve):
+def binary_search(ok, ng, solve):
   while abs(ok-ng) > 1:
     mid = (ok+ng)//2
     if solve(mid): ok = mid
@@ -17,6 +17,6 @@ def sample():
     ng = len(A)
     ok = 0
     # print(i, A)
-    print(A[binary_search(ng, ok, solve)])
+    print(A[binary_search(ok, ng, solve)])
 
 sample()

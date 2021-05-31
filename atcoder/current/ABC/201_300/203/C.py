@@ -14,42 +14,53 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_入力例_1(self):
-        input = """3 7 20
-1 2 4"""
-        output = """3 6 11"""
+        input = """2 3
+2 1
+5 10"""
+        output = """4"""
         self.assertIO(input, output)
 
     def test_入力例_2(self):
-        input = """3 3 100
-1 1 1"""
-        output = """34 33 33"""
+        input = """5 1000000000
+1 1000000000
+2 1000000000
+3 1000000000
+4 1000000000
+5 1000000000"""
+        output = """6000000000"""
         self.assertIO(input, output)
 
     def test_入力例_3(self):
-        input = """6 10006 10
-10000 3 2 1 0 0"""
-        output = """10 0 0 0 0 0"""
+        input = """3 2
+5 5
+2 1
+2 2"""
+        output = """10"""
         self.assertIO(input, output)
 
-    def test_入力例_4(self):
-        input = """7 78314 1000
-53515 10620 7271 3817 1910 956 225"""
-        output = """683 136 93 49 24 12 3"""
-        self.assertIO(input, output)
 
 def resolve():
-  # M/N した時に切り上げるか切り捨てるかを考える。
+  from collections import defaultdict
   inf = 10**18+1
-  K, N, M = map(int, input().split(" "))
-  A = [int(x) for x in input().split(" ")]
-  base = M/N
-  ans = [round(x*base) for x in A]
-  sum_ans = sum(ans)
+  N, K = map(int, input().split(" "))
+  money = defaultdict(int)
+  A = sorted([[int(x) for x in input().split(" ")] for _ in range(N)])
 
-  for i in range(abs(M-sum_ans)):
-    if M-sum_ans > 0: ans[i]+=1
-    else: ans[i]-=1
-  print(*ans)
+  f = 0
+  current = 0
+  next_ = 0
+  while True:
+    next_ = K+current
+    current = next_
+    K = 0
+    if f < N:
+      while A[f][0] <= next_:
+        K+=A[f][1]
+        f+=1
+        if f >= N: break
+    if K <= 0:
+      break
+  print(current)
 
 import sys
 if sys.argv[-1] == './Main.py':
@@ -58,4 +69,3 @@ if sys.argv[-1] == './Main.py':
 
 if __name__ == "__main__":
     unittest.main()
-
