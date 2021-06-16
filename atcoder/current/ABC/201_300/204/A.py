@@ -14,33 +14,31 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """aatt"""
-        output = """5"""
+        input = """0 1"""
+        output = """2"""
         self.assertIO(input, output)
 
     def test_Sample_Input_2(self):
-        input = """xxxxxxxxxx"""
-        output = """1"""
-        self.assertIO(input, output)
-
-    def test_Sample_Input_3(self):
-        input = """abracadabra"""
-        output = """44"""
+        input = """0 0"""
+        output = """0"""
         self.assertIO(input, output)
 
 def resolve():
-  # 操作は一回まで
-  # 組み合わせ数は N*(N-1)/2 個あるので、愚直だと厳しい
-  # 一旦反転して、LCS かける？(それでどうなるのって感じだけど。)
-  # N <= 2*10**5 は N**2 だと厳しいけど NlogN とか 多少の定数倍だったら通る。
-  # 
-  A = list(input())
-  revA = reversed(A)
-  print()
+  X = set([int(x) for x in input().split(" ")])
+
+  if len(list(X))==1:
+    print(list(X)[0])
+    return
+
+  for i in range(3):
+    if i not in X:
+      print(i)
+      return
 
 import sys
 if sys.argv[-1] == './Main.py':
   resolve()
+
 
 if __name__ == "__main__":
     unittest.main()

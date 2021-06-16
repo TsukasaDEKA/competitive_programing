@@ -46,21 +46,22 @@ class TestClass(unittest.TestCase):
 
 
 def resolve():
-  # 方向の変換は 縦->横 or 横->縦 のどちらか以外は意味がない。
-  # 縦横で分離して考える？
-  # そう考えると Light と似たような処理でいけるかも。
-  # 縦・横方向にグルーピング
-  # 何個グループを跨いでいけるか考える。
-  # それは BFS で行けそう。
-  from collections import deque
+  # 方向の変換は 縦->横 or 横->縦 のどちらか
+  # 縦横で分離して考えると良さそう。
+  # 縦・横方向で方向転換をしないで移動できるマス目をグルーピングする。
+  # 同じマスを共有しているグループ間の移動は可能と考えて、何個グループを跨いでゴールにいけるか考える。
+  # 縦のグループ同士、横のグループ同士はマスを共有しないのでグループ間の移動 == 方向転換と考えて良い。
+  # グループをノードと考えると BFS で行けそう。
+  from collections import defaultdict
   H, W = map(int, input().split(" "))
   Sh, Sw = [int(x)-1 for x in input().split(" ")]
   Gh, Gw = [int(x)-1 for x in input().split(" ")]
   MAZE = [[x=="." for x in list(input())] for _ in range(H)]
 
   index = 0
-  row = [[None]*W for _ in range(H)]
-  column = [[None]*W for _ in range(H)]
+  size = [0]*((H+100)*(W+100))
+  row = [[-1]*W for _ in range(H)]
+  column = [[-1]*W for _ in range(H)]
   # 横方向のグルーピング
   for h in range(H):
     for w in range(W):
@@ -68,7 +69,9 @@ def resolve():
         index+=1
         continue
       row[h][w] = index
-    index+=1
+      size[index]+=1
+    else:
+      index+=1
 
   # 縦方向のグルーピング
   for w in range(W):
@@ -77,40 +80,46 @@ def resolve():
         index+=1
         continue
       column[h][w] = index
-    index+=1
+      size[index]+=1
+    else:
+      index+=1
 
   # グラフの構築
-  edges = [set() for _ in range(index+1)]
+  edges = [[] for _ in range(index)]
   for h in range(H):
     row_h = row[h]
     column_h = column[h]
     MAZE_H = MAZE[h]
     for w in range(W):
-      if not MAZE_H[w]: continue
-      g1, g2 = row_h[w], column_h[w]
-      edges[g1].add(g2)
-      edges[g2].add(g1)
+      g1 = row_h[w]
+      if g1 < 0: continue
+      g2 = column_h[w]
+      if size[g1] <= 1: continue
+      if size[g2] <= 1: continue
+      edges[g1].append(g2)
+      edges[g2].append(g1)
   
-  step = [0]*(index+1)
-  checked = [False]*(index+1)
-  checked[row[Sh][Sw]] = checked[column[Sh][Sw]] = True
-  nexts = deque()
-  nexts.append(row[Sh][Sw])
-  nexts.append(column[Sh][Sw])
-  while nexts:
-    current = nexts.popleft()
-    if current == row[Gh][Gw] or current == column[Gh][Gw]:
-      print(step[current])
-      return
-    for n in edges[current]:
-      if checked[n]: continue
-      checked[n] = True
-      step[n] = step[current]+1
-      if n == row[Gh][Gw] or n == column[Gh][Gw]:
-        print(step[n])
-        return
-      nexts.append(n)
+  goals = set([row[Gh][Gw], column[Gh][Gw]])
+  if row[Sh][Sw] in goals or column[Sh][Sw] in  goals:
+    print(0)
+    return
 
+  count = 0
+  checked = [False]*index
+  checked[row[Sh][Sw]] = checked[column[Sh][Sw]] = True
+  nexts = [row[Sh][Sw], column[Sh][Sw]]
+
+  for count in range(1, index+1):
+    temp_nexts = []
+    for current in nexts:
+      for n in edges[current]:
+        if checked[n]: continue
+        checked[n] = True
+        if n in goals:
+          print(count)
+          return
+        temp_nexts.append(n)
+    nexts = temp_nexts
 
 import sys
 if sys.argv[-1] == './Main.py':

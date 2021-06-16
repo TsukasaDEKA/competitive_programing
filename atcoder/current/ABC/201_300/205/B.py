@@ -13,30 +13,39 @@ class TestClass(unittest.TestCase):
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
 
-    def test_Sample_Input_1(self):
-        input = """aatt"""
-        output = """5"""
+    def test_入力例_1(self):
+        input = """5
+3 1 2 4 5"""
+        output = """Yes"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_2(self):
-        input = """xxxxxxxxxx"""
-        output = """1"""
+    def test_入力例_2(self):
+        input = """6
+3 1 4 1 5 2"""
+        output = """No"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_3(self):
-        input = """abracadabra"""
-        output = """44"""
+    def test_入力例_3(self):
+        input = """3
+1 2 3"""
+        output = """Yes"""
+        self.assertIO(input, output)
+
+    def test_入力例_4(self):
+        input = """1
+1"""
+        output = """Yes"""
         self.assertIO(input, output)
 
 def resolve():
-  # 操作は一回まで
-  # 組み合わせ数は N*(N-1)/2 個あるので、愚直だと厳しい
-  # 一旦反転して、LCS かける？(それでどうなるのって感じだけど。)
-  # N <= 2*10**5 は N**2 だと厳しいけど NlogN とか 多少の定数倍だったら通る。
-  # 
-  A = list(input())
-  revA = reversed(A)
-  print()
+  N = int(input())
+  A = sorted([int(x)-1 for x in input().split(" ")])
+  for i in range(N):
+    if A[i] != i:
+      print("No")
+      return
+
+  print("Yes")
 
 import sys
 if sys.argv[-1] == './Main.py':

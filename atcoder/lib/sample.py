@@ -24,14 +24,16 @@ sys.setrecursionlimit(500*500)
 from math import gcd
 from functools import reduce
 from itertools import product
+from itertools import combinations
 from itertools import accumulate # 累積和作るやつ
-import numpy as n
+import numpy as np
 from collections import deque
 from collections import defaultdict
 from heapq import heappop, heappush
 
 alpha2num = lambda c: ord(c) - ord('a')
 num2alpha = lambda c: chr(c+97)
+popcnt = lambda x: bin(x).count("1")
 
 dx = [-1, 0, 1, 0]
 dy = [0, -1, 0, 1]

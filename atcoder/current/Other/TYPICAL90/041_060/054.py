@@ -80,13 +80,14 @@ class TestClass(unittest.TestCase):
 
 def resolve():
   # 同じ論文を書いた人同士を全てパスで繋ぐと N*(N-1)//2 本のパスを繋ぐことになるので間に合わない。
-  # ある人の高橋数が X だとして、X が 1 以上の時、X-1 の高橋数を持った人が必ず存在する。
-  # 高橋数が小さい順に決めていけば良さそう。
+  # X >= 1 な高橋数を持った人が存在する時、X-1 の高橋数を持った人が必ず存在する。
+  # => 高橋数が小さい順に決めていけば良い。
   # 高橋数 0 の人が書いた論文に載っている人に高橋数 1 を振って行く。
   # 次に、高橋数 1 の人が書いた論文に載っている人に高橋数 2 を振って行く。
   # 次に、高橋数 2 の人が・・・とやっていけばできそう。
-  # どの人がどの論文を書いたかを知っていればある程度高速に処理できる。
-  # 一度使った論文はもうチェックしなくていい。(その論文に載っている人はより小さな高橋数が振られてるので)
+  # => BFS の動きと一緒
+  # どの人がどの論文を書いたかを知っている必要があり、毎回検索するのは大変なので最初に集計しておく。
+  # 一度使った論文はもうチェックしなくていい。(その論文に載っている人は既により小さな高橋数が振られてるので)
   # => フラグで管理しておいて、必要ない場合は飛ばす。
   from collections import deque
   N, M = map(int, input().split(" "))
@@ -100,29 +101,25 @@ def resolve():
     for w in WRITER[p]:
       PAPER[w].add(p)
 
+  # 各著者の高橋数
   T = [-1]*N
   T[0] = 0
+
   checked_paper = [False]*M
   checked_writer = [False]*N
   checked_writer[0] = True
   nexts = deque()
   nexts.append(0)
-  for t in range(1, N+1):
-    tar = set()
-    while nexts:
-      n = nexts.popleft()
-      for p in PAPER[n]:
-        if checked_paper[p]: continue
-        checked_paper[p] = True
-        for w in WRITER[p]:
-          if checked_writer[w]: continue
-          checked_writer[w] = True
-          tar.add(w)
-    for i in tar:
-      T[i] = t
-      nexts.append(i)
-    # nexts が空 => 高橋数が途切れたということなので計算を切り上げる。
-    if not nexts: break
+  while nexts:
+    n = nexts.popleft()
+    for p in PAPER[n]:
+      if checked_paper[p]: continue
+      checked_paper[p] = True
+      for w in WRITER[p]:
+        if checked_writer[w]: continue
+        checked_writer[w] = True
+        T[w] = T[n]+1
+        nexts.append(w)
 
   print(*T, sep="\n")
 

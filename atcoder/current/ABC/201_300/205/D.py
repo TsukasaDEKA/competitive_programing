@@ -14,29 +14,44 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """aatt"""
-        output = """5"""
+        input = """4 3
+3 5 6 7
+2
+5
+3"""
+        output = """2
+9
+4"""
         self.assertIO(input, output)
 
     def test_Sample_Input_2(self):
-        input = """xxxxxxxxxx"""
-        output = """1"""
+        input = """5 2
+1 2 3 4 5
+1
+10"""
+        output = """6
+15"""
         self.assertIO(input, output)
 
-    def test_Sample_Input_3(self):
-        input = """abracadabra"""
-        output = """44"""
-        self.assertIO(input, output)
 
 def resolve():
-  # 操作は一回まで
-  # 組み合わせ数は N*(N-1)/2 個あるので、愚直だと厳しい
-  # 一旦反転して、LCS かける？(それでどうなるのって感じだけど。)
-  # N <= 2*10**5 は N**2 だと厳しいけど NlogN とか 多少の定数倍だったら通る。
-  # 
-  A = list(input())
-  revA = reversed(A)
-  print()
+  from bisect import bisect_left
+
+  # 二分探索っぽい。
+  inf = 10**18+1
+  N, Q = map(int, input().split(" "))
+  A = [int(x) for x in input().split(" ")]
+  count = [0]*N
+  for i in range(N):
+    count[i] = A[i]-(i+1)
+
+  for _ in range(Q):
+    K = int(input())
+    i = bisect_left(count, K)
+    if i == 0:
+      print(K)
+    else:
+      print(A[i-1]+(K-count[i-1]))
 
 import sys
 if sys.argv[-1] == './Main.py':
