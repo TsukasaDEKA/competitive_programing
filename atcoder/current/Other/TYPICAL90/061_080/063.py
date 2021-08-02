@@ -54,10 +54,10 @@ def resolve():
 
   H, W = map(int, input().split(" "))
   P = [[int(x) for x in input().split(" ")] for _ in range(H)]
-  agg = [defaultdict(int) for _ in range(H*W)]
 
   # P[h][w] を含む列の情報を集計。
-  # dict である必要はないけど、集計が楽になるので採用した。
+  # defaultdict である必要はないけど、集計が楽になるので採用した。
+  agg = [defaultdict(int) for _ in range(H*W)]
   for h in range(H):
     for w in range(W):
       agg[P[h][w]-1][w] += 1<<h

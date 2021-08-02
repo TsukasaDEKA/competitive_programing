@@ -42,6 +42,7 @@ class TestClass(unittest.TestCase):
         output = """1"""
         self.assertIO(input, output)
 
+# ワーシャルフロイド
 def resolve():
   inf = 10**6+1
 

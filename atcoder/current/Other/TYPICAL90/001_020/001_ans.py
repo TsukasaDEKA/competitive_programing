@@ -69,9 +69,6 @@ def resolve():
   K = int(input())
   A = [0] + [int(x) for x in input().split(" ")] + [L]
 
-  if N == 3 and L == 34:
-    return
-
   # メグル式二分探索。
   def binary_search(ok, ng, solve, k):
     while abs(ok-ng) > 1:

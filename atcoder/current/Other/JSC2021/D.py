@@ -23,41 +23,18 @@ class TestClass(unittest.TestCase):
         output = """0"""
         self.assertIO(input, output)
 
-    # def test_Sample_Input_3(self):
-    #     input = """45108 2571593"""
-    #     output = """224219544"""
-    #     self.assertIO(input, output)
-
-    def test_Sample_Input_4(self):
-        input = """10 100"""
+    def test_Sample_Input_3(self):
+        input = """45108 2571593"""
         output = """224219544"""
         self.assertIO(input, output)
 
 def resolve():
-  def comb(N, R, mod):
-    ans = 1
-    for n in range(N-R+1, N+1):
-      ans*=n
-      if ans > mod: ans%=mod
-
-    for r in range(1, R+1):
-      ans*=pow(r, mod-2, mod)
-      if ans > mod: ans%=mod
-
-    return ans
-
   mod = 10**9+7
-  # 和なので厄介。
-  # 長さ N の、和が P の倍数になる数列の個数を考えて、(P-1)**n から引く。
-
   N, P = map(int, input().split(" "))
+  ans = P-1
+  ans *= pow(P-2, N-1, mod)
 
-  dist = 0
-
-  # print(dist)
-  ans = (pow(P-1, N, mod) - dist)%mod
-
-  print(ans)
+  print(ans%mod)
 
 import sys
 if sys.argv[-1] == './Main.py':

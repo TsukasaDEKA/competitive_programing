@@ -4,6 +4,7 @@ import unittest
 
 
 class TestClass(unittest.TestCase):
+    maxDiff = None
     def assertIO(self, input, output):
         stdout, stdin = sys.stdout, sys.stdin
         sys.stdout, sys.stdin = StringIO(), StringIO(input)
@@ -106,14 +107,22 @@ def resolve():
   # 重ならないように上手くずらしたい。
   # 一旦ソートする必要はありそう。
   # N <= 20 なら全探索
+  # dp[i][d] := i 番目までの仕事を取った場合
   inf = 10**18+1
   N = int(input())
-  A = [int(input()) for _ in range(N)]
-  A = [list(map(int, input().split(" "))) for _ in range(N)]
-  S = list(input())
-  S_map = [list(input()) for _ in range(H)]
+  A = sorted([list(map(int, input().split(" "))) for _ in range(N)])
+  max_d = 5001
+  dp = [0]*max_d
+  # dp = [0]*5001
+  for i in range(N):
+    d, c, s = A[i]
+    for j in reversed(range(c, d+1)):
+      dp[j] = max(dp[j], dp[j-c]+s)
+    for j in range(d+1, max_d):
+      dp[j] = max(dp[j], dp[j-1])
 
-  print()
+  # print(dp)
+  print(dp[-1])
 
 import sys
 if sys.argv[-1] == './Main.py':
