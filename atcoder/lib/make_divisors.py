@@ -1,3 +1,5 @@
+# 約数列挙
+
 def make_divisors(n):
   lower_divisors , upper_divisors = [], []
   i = 1

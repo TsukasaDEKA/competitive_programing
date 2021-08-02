@@ -31,15 +31,18 @@ class TestClass(unittest.TestCase):
 # 高速な組み合わせ計算
 # 
 def comb(N, R, mod):
+  if N-R < R:
+    R = N-R
   ans = 1
   for n in range(N-R+1, N+1):
     ans*=n
     if ans > mod: ans%=mod
 
-  for r in range(1, R+1):
-    ans*=pow(r, mod-2, mod)
-    if ans > mod: ans%=mod
-
+  den = 1
+  for r in range(2, R+1):
+    den*=r
+    if den > mod: den%=mod
+  ans *= pow(den, mod-2, mod)
   return ans
 
 def resolve():
