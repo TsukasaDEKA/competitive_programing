@@ -129,8 +129,9 @@ class TestClass(unittest.TestCase):
         self.assertIO(input, output)
 
 def resolve():
-  # k==1 の時、2**N-1 通り。
-  # k==N の時、N
+  # 以下の二つは自明
+  # 1. k==1 の時、2**N-1 通り。
+  # 2. k==N の時、N 通り。
   # フィボナッチ数列っぽい？
   # k を大きい順に計算していく。k が N//2 以上だったら f(k+1) の数字に + N-k を足す。
   # N//3+1 以上だったら？

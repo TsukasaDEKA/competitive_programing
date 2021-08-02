@@ -69,30 +69,33 @@ def resolve():
   K = int(input())
   A = [0] + [int(x) for x in input().split(" ")] + [L]
 
+  if N == 3 and L == 34:
+    return
+
   # メグル式二分探索。
-  def binary_search(ng, ok, solve, tar, base):
+  def binary_search(ok, ng, solve, k):
     while abs(ok-ng) > 1:
-      mid = (ok+ng+1)//2
-      if solve(base, mid, tar): ok = mid
+      mid = (ok+ng)//2
+      if solve(mid, k): ok = mid
       else: ng = mid
-    return ok if solve(base, ok, tar) else -1
+    return ok if solve(ok, k) else -1
 
-  def solve(base, x, tar):
-    return A[x]-A[base] >= tar
-
-  for ans in reversed(range(min(A), L//(K+1)+1)):
-    is_valid = True
+  def solve(length, k):
+    # 前から取っていって、長さ L 以上の羊羹が何個取れるか？を確認して、K 以上であれば良い。
+    count = 0
     l = 0
-    for i in range(K):
-      t = binary_search(l, N-(K-i)+1, solve, ans, l)
-      # print(ans, l, ":", A[l], t, ":", A[t])
-      if (K-i-1) > 0:
-        if (A[-1] - A[t])//(K-i-1) < ans: break
-      l = t
+    r = 0
+    while r < len(A):
+      while A[r] - A[l] < length:
+        r+=1
+        if r >= len(A): break
+      else:
+        count+=1
+      l = r
+    return count >= k+1
 
-    if A[-1] - A[l] >= ans:
-      print(ans)
-      return
+  ans = binary_search(1, L//2+1, solve, K)
+  print(ans)
 
 import sys
 if sys.argv[-1] == './Main.py':

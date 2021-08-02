@@ -101,6 +101,11 @@ class TestClass(unittest.TestCase):
         self.assertIO(input, output)
 
 def resolve():
+  # D-C, D を単純に並べていくと仕事をしている期間に重なりがあることがわかる。
+  # 仕事をする期間は前にずらすことができる。
+  # 重ならないように上手くずらしたい。
+  # 一旦ソートする必要はありそう。
+  # N <= 20 なら全探索
   inf = 10**18+1
   N = int(input())
   A = [int(input()) for _ in range(N)]
