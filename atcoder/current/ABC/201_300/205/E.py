@@ -31,6 +31,7 @@ class TestClass(unittest.TestCase):
 def resolve():
   mod = 10**9+7
   # 順列総数。
+  # カタラン数
   # http://www.geisya.or.jp/~mwm48961/kou3/onajimono1.htm
   # DP で解く?
   # N == K だったら単純な並び替えで解ける。

@@ -62,27 +62,7 @@ class TestClass(unittest.TestCase):
 }
 
 function footer(){
-    return `import sys
-sys.setrecursionlimit(500*500)
-
-from math import gcd
-from functools import reduce
-from itertools import product
-from itertools import combinations
-from itertools import accumulate # 累積和作るやつ
-import numpy as np
-from collections import deque
-from collections import defaultdict
-from heapq import heappop, heappush
-
-alpha2num = lambda c: ord(c) - ord('a')
-num2alpha = lambda c: chr(c+97)
-popcnt = lambda x: bin(x).count("1")
-
-dx = [-1, 0, 1, 0]
-dy = [0, -1, 0, 1]
-
-def resolve():
+    return `def resolve():
   inf = 10**18+1
   N = int(input())
   N, K = map(int, input().split(" "))
@@ -94,6 +74,26 @@ def resolve():
   S_map = [list(input()) for _ in range(H)]
 
   print()
+
+import sys
+sys.setrecursionlimit(500*500)
+  
+from math import gcd
+from functools import reduce
+from itertools import product
+from itertools import combinations
+from itertools import accumulate # 累積和作るやつ
+from collections import deque
+from collections import defaultdict
+from heapq import heappop, heappush
+from bisect import bisect_left
+
+alpha2num = lambda c: ord(c) - ord('a')
+num2alpha = lambda c: chr(c+97)
+popcnt = lambda x: bin(x).count("1")
+
+dx = [-1, 0, 1, 0]
+dy = [0, -1, 0, 1]
 
 import sys
 if sys.argv[-1] == './Main.py':
@@ -111,7 +111,8 @@ function testCode(){
     for (var i = 0; i < inputs.length; i++) {
         result += `    def test_Sample_Input_${i+1}(self):
         input = """${inputs[i].trimEnd()}"""
-        output = """${outputs[i].trimEnd()}"""\n\n`;
+        output = """${outputs[i].trimEnd()}"""
+        self.assertIO(input, output)\n\n`;
     }
     return result
 }
