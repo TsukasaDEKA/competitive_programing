@@ -47,6 +47,9 @@ class TestClass(unittest.TestCase):
 #         self.assertIO(input, output)
 
 def resolve():
+  # DP なんだけど非常に厄介。
+  # ある空白マスを通る場合 => そのマスが R, D, X それぞれの場合を計算すれば良い。
+  # ある空白マスを通らない場合 => それ以外の経路について、3^<空白マスの個数> 分のバリエーションが生まれる。
   mod = 998244353
   H, W, K = map(int, input().split(" "))
   MAP = [[None]*W for _ in range(H)]
