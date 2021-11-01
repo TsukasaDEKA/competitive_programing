@@ -69,11 +69,9 @@ class TestClass(unittest.TestCase):
 
 def resolve():
   # N <= 500 なので、どうにかならないか。
-  # p = 0, q = N の場合、答えは M になる。
-  # 0 ~ p, q ~ N　の範囲に何本あるかで計算できないか？
-  # 本数だとダメっぽい。
   # p 未満の L の個数と q より大きい R の個数
-  inf = 10**18+1
+  # count[L][R] = L 発 R 到着の電車として、二次元累積和をとる。
+  # 最後に、(p, p), (q, q) が成す四角形の区間和をとる。
   N, M, Q = map(int, input().split(" "))
   count = [[0]*N for _ in range(N)]
   for _ in range(M):
@@ -82,12 +80,13 @@ def resolve():
   
   integral_count = [[0]*(N+1) for _ in range(N+1)]
   for i in range(N):
-    pass
+    for j in range(N):
+      integral_count[i+1][j+1] = count[i][j]+integral_count[i][j+1]+integral_count[i+1][j]-integral_count[i][j]
 
   for _ in range(Q):
-    p, q = [int(x) for x in input().split(" ")]
-
-  print()
+    p, q = [int(x)-1 for x in input().split(" ")]
+    ans = integral_count[q+1][q+1]-integral_count[p][q+1]-integral_count[q+1][p]+integral_count[p][p]
+    print(ans)
 
 import sys
 if sys.argv[-1] == './Main.py':

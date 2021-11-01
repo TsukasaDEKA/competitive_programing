@@ -17,6 +17,26 @@ def topological_sort(N, in_degrees, outs):
 
   return topological_graph
 
+# 辞書順にする場合はこちらを使う。
+# def topological_sort(N, in_degrees, outs):
+#   from heapq import heappop, heappush
+#   topological_graph = []
+#   # 入次数 0 のノードから始める。
+#   c = [x for x in range(N) if in_degrees[x] == 0]
+#   nexts = []
+#   for i in c:
+#     heappush(nexts, i)
+
+#   while nexts:
+#     current = heappop(nexts)
+#     topological_graph.append(current)
+#     for tar in outs[current]:
+#       in_degrees[tar]-=1
+#       # 入次数が 0 だったら追加する。
+#       if in_degrees[tar]==0:
+#         heappush(nexts, tar)
+
+#   return topological_graph
 
 # 以下サンプル
 from collections import defaultdict, deque
