@@ -14,39 +14,48 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """3 3 2 2 3"""
-        output = """Yes"""
+        input = """5 2
+4 5 3 1 2"""
+        output = """2
+1
+3
+5"""
         self.assertIO(input, output)
 
     def test_Sample_Input_2(self):
-        input = """3 3 4 4 1"""
-        output = """No"""
+        input = """5 3
+4 5 3 1 2"""
+        output = """2
+1
+3"""
         self.assertIO(input, output)
 
     def test_Sample_Input_3(self):
-        input = """1000000000 1000000000 1000000000000000000 1000000000000000000 1000000000000000000"""
-        output = """No"""
+        input = """3 1
+2 3 1"""
+        output = """1
+1
+3"""
         self.assertIO(input, output)
 
 def resolve():
-  from itertools import permutations
+  from heapq import heappop, heappush
 
-  # 考える必要のある分割パターンは 4 種類。
-  # A、B、C の並びも全種類試すべき？それでも 4*6 = 24 種類。
-  X, Y, A, B, C = map(int, input().split(" "))
+  N, K = map(int, input().split(" "))
+  X = [int(x) for x in input().split(" ")]
+  ans = []
+  for i in range(K):
+    heappush(ans, (-X[i], i+1))
+  
+  print(ans[0][1])
+  for i in range(K, N):
+    x, j = heappop(ans)
+    x *= -1
+    if X[i] < x:
+      x, j = X[i], i+1
 
-  for a, b, c in permutations([A, B, C], 3):
-    for x, y in [[X,Y], [Y,X]]:
-      x -= (a+y-1)//y
-      if x <= 0: continue
-
-      for x_, y_ in [[x,y], [y,x]]:
-        x_ -= (b+y_-1)//y_
-        if x_*y_ >= c:
-          print("Yes")
-          return
-
-  print("No")
+    heappush(ans, (-x, j))
+    print(ans[0][1])
 
 import sys
 if sys.argv[-1] == './Main.py':

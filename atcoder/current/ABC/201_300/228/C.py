@@ -14,39 +14,49 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """3 3 2 2 3"""
-        output = """Yes"""
+        input = """3 1
+178 205 132
+112 220 96
+36 64 20"""
+        output = """Yes
+Yes
+No"""
         self.assertIO(input, output)
 
     def test_Sample_Input_2(self):
-        input = """3 3 4 4 1"""
-        output = """No"""
+        input = """2 1
+300 300 300
+200 200 200"""
+        output = """Yes
+Yes"""
         self.assertIO(input, output)
 
     def test_Sample_Input_3(self):
-        input = """1000000000 1000000000 1000000000000000000 1000000000000000000 1000000000000000000"""
-        output = """No"""
+        input = """4 2
+127 235 78
+192 134 298
+28 56 42
+96 120 250"""
+        output = """Yes
+Yes
+No
+Yes"""
         self.assertIO(input, output)
 
 def resolve():
-  from itertools import permutations
+  from bisect import bisect
 
-  # 考える必要のある分割パターンは 4 種類。
-  # A、B、C の並びも全種類試すべき？それでも 4*6 = 24 種類。
-  X, Y, A, B, C = map(int, input().split(" "))
+  inf = 10**18+1
+  N, K = map(int, input().split(" "))
+  A = [sum([int(x) for x in input().split(" ")]) for _ in range(N)]
+  table = sorted(A)
+  # A = sorted([(x, i) for i, x in enumerate([sum([int(x) for x in input().split(" ")]) for _ in range(N)])], reverse=True)
+  ans = [""]*N
+  for i in range(N):
+    index = bisect(table, A[i]+300)
+    ans[i] = "Yes" if N-index+1 <= K else "No"
+  print(*ans, sep="\n")
 
-  for a, b, c in permutations([A, B, C], 3):
-    for x, y in [[X,Y], [Y,X]]:
-      x -= (a+y-1)//y
-      if x <= 0: continue
-
-      for x_, y_ in [[x,y], [y,x]]:
-        x_ -= (b+y_-1)//y_
-        if x_*y_ >= c:
-          print("Yes")
-          return
-
-  print("No")
 
 import sys
 if sys.argv[-1] == './Main.py':

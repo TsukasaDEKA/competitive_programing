@@ -14,40 +14,27 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """3 3 2 2 3"""
-        output = """Yes"""
+        input = """3 3 2"""
+        output = """1"""
         self.assertIO(input, output)
 
     def test_Sample_Input_2(self):
-        input = """3 3 4 4 1"""
-        output = """No"""
+        input = """1 100 1"""
+        output = """1"""
         self.assertIO(input, output)
 
     def test_Sample_Input_3(self):
-        input = """1000000000 1000000000 1000000000000000000 1000000000000000000 1000000000000000000"""
-        output = """No"""
+        input = """3 14 2"""
+        output = """3"""
         self.assertIO(input, output)
 
 def resolve():
-  from itertools import permutations
-
-  # 考える必要のある分割パターンは 4 種類。
-  # A、B、C の並びも全種類試すべき？それでも 4*6 = 24 種類。
-  X, Y, A, B, C = map(int, input().split(" "))
-
-  for a, b, c in permutations([A, B, C], 3):
-    for x, y in [[X,Y], [Y,X]]:
-      x -= (a+y-1)//y
-      if x <= 0: continue
-
-      for x_, y_ in [[x,y], [y,x]]:
-        x_ -= (b+y_-1)//y_
-        if x_*y_ >= c:
-          print("Yes")
-          return
-
-  print("No")
-
+  N, K, A = map(int, input().split(" "))
+  ans = A-1
+  for _ in range(K-1):
+    ans+=1
+    ans%=N
+  print(ans+1)
 import sys
 if sys.argv[-1] == './Main.py':
   resolve()

@@ -14,39 +14,27 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """3 3 2 2 3"""
+        input = """7 20 12"""
         output = """Yes"""
         self.assertIO(input, output)
 
     def test_Sample_Input_2(self):
-        input = """3 3 4 4 1"""
+        input = """20 7 12"""
         output = """No"""
         self.assertIO(input, output)
 
     def test_Sample_Input_3(self):
-        input = """1000000000 1000000000 1000000000000000000 1000000000000000000 1000000000000000000"""
-        output = """No"""
+        input = """23 0 23"""
+        output = """Yes"""
         self.assertIO(input, output)
 
+
 def resolve():
-  from itertools import permutations
+  S, T, X = map(int, input().split(" "))
 
-  # 考える必要のある分割パターンは 4 種類。
-  # A、B、C の並びも全種類試すべき？それでも 4*6 = 24 種類。
-  X, Y, A, B, C = map(int, input().split(" "))
-
-  for a, b, c in permutations([A, B, C], 3):
-    for x, y in [[X,Y], [Y,X]]:
-      x -= (a+y-1)//y
-      if x <= 0: continue
-
-      for x_, y_ in [[x,y], [y,x]]:
-        x_ -= (b+y_-1)//y_
-        if x_*y_ >= c:
-          print("Yes")
-          return
-
-  print("No")
+  if T < S: T += 24
+  if X < S: X += 24
+  print("Yes" if S <= X and X < T else "No")
 
 import sys
 if sys.argv[-1] == './Main.py':

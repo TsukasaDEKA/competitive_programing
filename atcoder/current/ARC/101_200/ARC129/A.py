@@ -14,39 +14,35 @@ class TestClass(unittest.TestCase):
         self.assertEqual(out, output)
 
     def test_Sample_Input_1(self):
-        input = """3 3 2 2 3"""
-        output = """Yes"""
+        input = """2 1 2"""
+        output = """1"""
         self.assertIO(input, output)
 
     def test_Sample_Input_2(self):
-        input = """3 3 4 4 1"""
-        output = """No"""
+        input = """10 2 19"""
+        output = """10"""
         self.assertIO(input, output)
 
     def test_Sample_Input_3(self):
-        input = """1000000000 1000000000 1000000000000000000 1000000000000000000 1000000000000000000"""
-        output = """No"""
+        input = """1000000000000000000 1 1000000000000000000"""
+        output = """847078495393153025"""
         self.assertIO(input, output)
 
 def resolve():
-  from itertools import permutations
+  N, L, R = map(int, input().split(" "))
+  len_N = N.bit_length()
+  len_R = R.bit_length()
+  ans = 0
+  for b in reversed(range(len_N)):
+    # b 桁目を 1 で固定した時に条件を満たすか判定する。
+    if N&(1<<b):
+      # L, R の範囲に含まれる個数を求める。
+      max_ = min((1<<(b+1))-1, R)
+      min_ = max((1<<(b)), L)
+      # print(bin(1<<b), max_, min_)
+      ans += max(max_-min_+1, 0)
+  print(ans)
 
-  # 考える必要のある分割パターンは 4 種類。
-  # A、B、C の並びも全種類試すべき？それでも 4*6 = 24 種類。
-  X, Y, A, B, C = map(int, input().split(" "))
-
-  for a, b, c in permutations([A, B, C], 3):
-    for x, y in [[X,Y], [Y,X]]:
-      x -= (a+y-1)//y
-      if x <= 0: continue
-
-      for x_, y_ in [[x,y], [y,x]]:
-        x_ -= (b+y_-1)//y_
-        if x_*y_ >= c:
-          print("Yes")
-          return
-
-  print("No")
 
 import sys
 if sys.argv[-1] == './Main.py':
