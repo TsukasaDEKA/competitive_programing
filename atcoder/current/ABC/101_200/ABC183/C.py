@@ -53,7 +53,7 @@ def resolve():
     if time == K: ans+=1
   print(ans)
 
-resolve()
+# resolve()
 
 if __name__ == "__main__":
     unittest.main()

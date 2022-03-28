@@ -49,39 +49,47 @@ class TestClass(unittest.TestCase):
 3"""
         self.assertIO(input, output)
 
+class BIT:
+    def __init__(self, n):
+        self.n = n
+        self.data = [0]*(n+1)
+        self.el = [0]*(n+1)
+    def sum(self, i):
+        s = 0
+        while i > 0:
+            s += self.data[i]
+            i -= i & -i
+        return s
+    def add(self, i, x):
+        # assert i > 0
+        self.el[i] += x
+        while i <= self.n:
+          self.data[i] += x
+          i += i & -i
+    def get(self, i, j=None):
+        if j is None:
+            return self.el[i]
+        return self.sum(j) - self.sum(i)
+
 def resolve():
-  # クエリ先読みして l, r それぞれでソートする。
-  # 最も左側の r_0 をとってその r よりも左側の l の内、最も右側の l_i をとる。
-  # l_i ~ r_0 の種類数を数えて記録。
-  # 右側を動かして r_1 を見つけたらそこでストップ
-  # r_0 ~ r_1 までの間にある l_[i+1:] を探して、
-  # それぞれの l_[i+1:] と r_1 の組み合わせを記録していく。
-  # 
   N, Q = map(int, input().split(" "))
-  C = [int(x) for x in input().split(" ")]
-  QUERY = [[int(x) for x in input().split(" ")] for _ in range(Q)]
+  C = [int(x)-1 for x in input().split(" ")]
+  QUERY = sorted([(i, *[int(x) for x in input().split(" ")]) for i in range(Q)], key=lambda x: x[2])
 
-  print(sorted(QUERY))
-
-import sys
-sys.setrecursionlimit(500*500)
-
-from math import gcd
-from functools import reduce
-from itertools import product
-from itertools import combinations
-from itertools import accumulate # 累積和作るやつ
-from collections import deque
-from collections import defaultdict
-from heapq import heappop, heappush
-from bisect import bisect_left
-
-alpha2num = lambda c: ord(c) - ord('a')
-num2alpha = lambda c: chr(c+97)
-popcnt = lambda x: bin(x).count("1")
-
-dx = [-1, 0, 1, 0]
-dy = [0, -1, 0, 1]
+  BITree = BIT(N)
+  right_end = [-1]*N
+  ans = [0]*Q
+  current_r = 0
+  for i, l, r in QUERY:
+    for r_ in range(current_r+1, r+1):
+      c = C[r_-1]
+      if right_end[c] >= 0:
+        BITree.add(right_end[c], -1)
+      right_end[c] = r_
+      BITree.add(right_end[c], 1)
+    current_r = r
+    ans[i] = BITree.get(l-1, r)
+  print(*ans, sep="\n")
 
 import sys
 if sys.argv[-1] == './Main.py':

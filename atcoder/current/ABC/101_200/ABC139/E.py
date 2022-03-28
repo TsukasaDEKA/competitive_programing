@@ -41,31 +41,36 @@ class TestClass(unittest.TestCase):
 def resolve():
   # キューに入れて貪欲？
   from collections import deque
+  import copy
 
   inf = 10**18+1
   N = int(input())
-  A = [deque([int(x)-1 for x in input().split(" ")]) for _ in range(N)]
+  A = [deque([sorted([int(x)-1, i]) for x in input().split(" ")]) for i in range(N)]
   count = 0
-  fixed = 0
-  while True:
-    count+=1
-    checked = [False]*N
-    is_stack = True
-    for i in range(N):
-      if checked[i]: continue
-      if A[i]:
-        if i == A[A[i][0]][0]:
-          checked[i] = checked[A[i][0]] = True
-          fixed+=1
-          is_stack = False
-          _ = A[A[i][0]].popleft()
-          _ = A[i].popleft()
-        # print(i, A[A[i][0]][0], i == A[A[i][0]][0], A)
+  target = set()
+  for i in range(N):
+    target.add(i)
 
-    if is_stack:
-      if fixed < N*(N-1)//2: print(-1)
-      else: print(count)
+  POOL = set()
+  while target:
+    count+=1
+    temp = set()
+    for t in target:
+      i, j = A[t].popleft()
+      if (i, j) in POOL:
+        POOL.remove((i, j))
+        if len(A[i]): temp.add(i)
+        if len(A[j]): temp.add(j)
+      else:
+        POOL.add((i, j))
+    target = temp
+
+  for i in range(N):
+    if len(A[i]):
+      print(-1)
       return
+  else:
+    print(count)
 
 import sys
 if sys.argv[-1] == './Main.py':

@@ -12,7 +12,7 @@ class TestClass(unittest.TestCase):
         out = sys.stdout.read()[:-1]
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
-˜
+
     def test_Sample_Input_1(self):
         input = """5 3"""
         output = """3

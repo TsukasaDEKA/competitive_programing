@@ -2,8 +2,8 @@ import sys
 from io import StringIO
 import unittest
 
-
 class TestClass(unittest.TestCase):
+    maxDiff = None
     def assertIO(self, input, output):
         stdout, stdin = sys.stdout, sys.stdin
         sys.stdout, sys.stdin = StringIO(), StringIO(input)
@@ -13,63 +13,47 @@ class TestClass(unittest.TestCase):
         sys.stdout, sys.stdin = stdout, stdin
         self.assertEqual(out, output)
 
-    def test_入力例1(self):
-        input = """4
-1 3
-1 4
-2 3"""
-        output = """1 3 2 4"""
+    def test_Sample_Input_1(self):
+        input = """abcd
+dabc"""
+        output = """1"""
         self.assertIO(input, output)
 
-    def test_入力例2(self):
-        input = """6
-1 2
-2 3
-2 6
-6 4
-1 5"""
-        output = """1 2 3 5 6 4"""
+    def test_Sample_Input_2(self):
+        input = """abcabcabc
+bcabcabca"""
+        output = """2"""
         self.assertIO(input, output)
 
-    def test_入力例3(self):
-        input = """7
-1 5
-5 2
-5 3
-5 7
-5 6
-6 4"""
-        output = """1 5 2 3 6 4 7"""
+    def test_Sample_Input_3(self):
+        input = """aaa
+a"""
+        output = """-1"""
         self.assertIO(input, output)
+
 
 def resolve():
-  # 優先度付きキューを使って BFS
-  from heapq import heappop, heappush
+  from collections import deque
 
-  N = int(input())
-  routes = [set() for _ in range(N)]
-  for _ in range(N-1):
-    a, b = [int(x)-1 for x in input().split(" ")]
-    routes[a].add(b)
-    routes[b].add(a)
+  inf = 10**18+1
+  S = list(input())
+  T = list(input())
+  if len(S) != len(T):
+    print(-1)
+    return
+  N = len(S)
+  for offset in range(N):
+    for i in range(N):
+      if S[(i-offset)%N]!=T[i]:
+        break
+    else:
+      print(offset)
+      return
+  print(-1)
 
-  checked = [False]*N
-  nexts = [0]
-  checked_count = 0
-  ans = []
-  while nexts:
-    next_ = heappop(nexts)
-    if checked[next_]: continue
-    checked[next_] = True
-    checked_count += 1
-
-    ans.append(next_ + 1)
-    if checked_count >= N: break
-    for n in routes[next_]: heappush(nexts, n)
-
-  print(*ans, sep=" ")
-
-resolve()
+import sys
+if sys.argv[-1] == './Main.py':
+  resolve()
 
 if __name__ == "__main__":
-    unittest.main()
+  unittest.main()

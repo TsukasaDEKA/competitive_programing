@@ -35,6 +35,8 @@ from collections import deque
 from collections import defaultdict
 from heapq import heappop, heappush
 from bisect import bisect_left
+# 0埋めされた二進数表現
+f'{9:05b}'
 
 alpha2num = lambda c: ord(c) - ord('a')
 num2alpha = lambda c: chr(c+97)
@@ -42,6 +44,8 @@ popcnt = lambda x: bin(x).count("1")
 
 dh = [-1, 0, 1, 0]
 dw = [0, -1, 0, 1]
+dh8 = [-1, -1, -1,  0,  0,  1,  1,  1]
+dw8 = [-1,  0,  1, -1,  1, -1,  0,  1]
 
 def resolve():
   inf = 10**18+1

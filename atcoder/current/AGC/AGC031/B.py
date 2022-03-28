@@ -47,6 +47,7 @@ class TestClass(unittest.TestCase):
         self.assertIO(input, output)
 
 def resolve():
+  # 解説 AC
   # 独立して使用できるペアとそうでないペアが存在する。
   # 12122 だと、例えば先に 212 の部分を実行した場合、
   # 121 の部分を実行することはできない。

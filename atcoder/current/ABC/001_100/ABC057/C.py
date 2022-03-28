@@ -37,7 +37,7 @@ def resolve():
       ans = min(ans, len(str(max(i, N//i))))
   print(ans)
 
-resolve()
+# resolve()
 
 if __name__ == "__main__":
     unittest.main()

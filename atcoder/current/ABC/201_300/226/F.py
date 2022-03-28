@@ -44,7 +44,7 @@ def resolve():
     # 
     pattarn = 1
     for i in range(N):
-
+      pass
   print()
 
 import sys

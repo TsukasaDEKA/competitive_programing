@@ -7,9 +7,17 @@ def scc(n, edge, directed=False, connection='strong'):
   from scipy.sparse import csr_matrix
 
   m = len(edge)
-  edge_t = np.array(edge, dtype = np.int64).T
-  tmp = np.ones(m, dtype = np.int64).T
-  graph = csr_matrix((tmp, edge_t[:]), (n, n))
+  # edge_t = np.array(edge, dtype = np.int64).T
+  # tmp = np.ones(m, dtype = np.int64).T
+  # graph = csr_matrix((tmp, edge_t[:]), (n, n))
+
+  # 上記の実装だとメモリが足りないのか RE が出てしまったので以下の形式に修正した。
+  shiten, shuten, value = [], [], []
+  for e_s, e_t in edge:
+    shiten.append(e_s)
+    shuten.append(e_t)
+    value.append(1)
+  graph = csr_matrix((value, (shiten, shuten)), (n, n))
 
   # directed = True で有効グラフ
   # connection = 'strong' で強連結 (相互移動可能)

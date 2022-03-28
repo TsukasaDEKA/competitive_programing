@@ -45,8 +45,6 @@ def resolve():
   # 同じように R 方向に落とせる条件は
   # (W - Sw) - [S[:i]に含まれる R] + [T[:i]に含まれる L] < 0である i が存在することである。
   # これを 縦の分もやれば良いのでは？
-  from collections import defaultdict
-  LUDR = "LUDR"
   H, W, N = map(int, input().split(" "))
   Sh, Sw = [int(x) for x in input().split(" ")]
   S = list(input())
@@ -69,26 +67,6 @@ def resolve():
     if T[i] == "D": Uh = min(Uh+1, H)
 
   print("YES")
-
-import sys
-sys.setrecursionlimit(500*500)
-
-from math import gcd
-from functools import reduce
-from itertools import product
-from itertools import combinations
-from itertools import accumulate # 累積和作るやつ
-from collections import deque
-from collections import defaultdict
-from heapq import heappop, heappush
-from bisect import bisect_left
-
-alpha2num = lambda c: ord(c) - ord('a')
-num2alpha = lambda c: chr(c+97)
-popcnt = lambda x: bin(x).count("1")
-
-dh = [0, -1, 0, 1]
-dw = [-1, 0, 1, 0]
 
 import sys
 if sys.argv[-1] == './Main.py':

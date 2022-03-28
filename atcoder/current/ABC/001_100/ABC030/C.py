@@ -64,7 +64,7 @@ def resolve():
     current_time = B[b_i] + B_t
     ans+=1
 
-resolve()
+# resolve()
 
 if __name__ == "__main__":
     unittest.main()

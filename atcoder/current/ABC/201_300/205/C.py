@@ -31,15 +31,12 @@ class TestClass(unittest.TestCase):
 
 def resolve():
   A, B, C = map(int, input().split(" "))
-  C = 1 if C%2 else 2
+  # C = 1 if C%2 else 2
   A = pow(A, C)
   B = pow(B, C)
-  if A == B:
-    print("=")
-  elif A > B:
-    print(">")
-  else:
-    print("<")
+  if A == B:  print("=")
+  elif A > B: print(">")
+  else: print("<")
   # if A >= 0 and B >= 0:
   #   if A == B:
   #     print("=")

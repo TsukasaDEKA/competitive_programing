@@ -75,7 +75,6 @@ class SegTree:
       r >>= 1
     return res
 
-
 sample = list(range(16))
 seg = SegTree(sample, segfunc, ide_ele)
 print(seg.tree)

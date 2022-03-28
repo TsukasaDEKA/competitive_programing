@@ -41,8 +41,8 @@ def resolve():
   A = [int(x) for x in input().split(" ")]
   print(K-sum(A) if K-sum(A) >= 0 else -1)
 
-if __name__ == "__main__":
-    resolve()
+# if __name__ == "__main__":
+#     resolve()
 
 if __name__ == "__main__":
     unittest.main()
