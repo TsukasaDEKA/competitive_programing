@@ -103,7 +103,7 @@ class SegTreeWithIndex:
 
 
 sample = list(range(16))
-seg = SegTree(sample, segfunc, ide_ele)
+seg = SegTreeWithIndex(sample, segfunc, ide_ele)
 print(seg.tree)
 
 print(seg.indexes)

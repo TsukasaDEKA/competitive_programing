@@ -1,3 +1,15 @@
 {
-  "python.pythonPath": "/usr/local/Caskroom/miniconda/base/envs/py35/bin/python"
+  "python.defaultInterpreterPath": "/usr/local/Caskroom/miniconda/base/envs/py35/bin/python",
+  "code-runner.runInTerminal": true,
+  "code-runner.executorMap": {
+		// "python" : "$pythonPath -u $fullFileName",
+    "python" : "oj test -c '$pythonPath $fullFileName' -d $dir/tests",
+    "typescript" : "oj test -c 'ts-node $fullFileName' -d $dir/tests",
+  },
+  "command-runner.terminal.name": "runCommand",
+  "command-runner.terminal.autoClear": false,
+  "command-runner.terminal.autoFocus": true,
+  "command-runner.commands": {
+    "echo env": "which ${pythonPath}",
+  }
 }

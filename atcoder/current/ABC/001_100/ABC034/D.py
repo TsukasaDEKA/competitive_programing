@@ -23,26 +23,37 @@ class TestClass(unittest.TestCase):
         self.assertIO(input, output)
 
 def resolve():
+  # DP っぽい。
+  # 愚直でいける・・・？
+  inf = 10**9+1
   from collections import deque
 
   N, K = map(int, input().split(" "))
   W_P = sorted([[int(x) for x in input().split(" ")] for _ in range(N)], key=lambda x: x[1], reverse=True)
 
-  w, p = W_P[0]
-  tar = set(list(range(1, N)))
-  for _ in range(K-1):
-    temp_p = 0
-    temp_i = 0
-    for i in tar:
-      w_, p_ = W_P[i]
-      if (w_*p_+w*p)/(w_+w) > temp_p:
-        temp_p = (w_*p_+w*p)/(w_+w)
-        temp_i = i
-    w_, p_ = W_P[temp_i]
-    p = (w_*p_+w*p)/(w_+w)
-    w+=w
-    tar.remove(temp_i)
-  print(p)
+  used = set([0])
+  total, p = W_P[0]
+  if p == 0:
+    print(0)
+    return
+  solt = total*p/100
+  W_P[0] = [inf, 0]
+  K-=1
+  for _ in range(K):
+    tar = 0
+    conce = 0
+    for j in range(N):
+      w, p = W_P[j]
+      if w == inf: continue
+      s = w*p/100
+      if (s+solt)/(total+w) > conce:
+        tar = j
+        conce = (s+solt)/(w+total)
+    w, p = W_P[tar]
+    total+=w
+    solt+=w*p/100
+    W_P[tar] = [inf, 0]
+  print(solt/total*100)
 
 import sys
 if sys.argv[-1] == './Main.py':

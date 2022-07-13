@@ -1,0 +1,55 @@
+{
+  "contest": {
+    "id": "AGC053",
+    "title": "AtCoder Grand Contest 053",
+    "url": "https://atcoder.jp/contests/AGC053"
+  },
+  "tasks": [
+    {
+      "id": "agc053_a",
+      "label": "A",
+      "title": ">< again",
+      "url": "https://atcoder.jp/contests/AGC053/tasks/agc053_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "agc053_b",
+      "label": "B",
+      "title": "Taking the middle",
+      "url": "https://atcoder.jp/contests/AGC053/tasks/agc053_b",
+      "directory": {
+        "path": "b",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "agc053_c",
+      "label": "C",
+      "title": "Random Card Game",
+      "url": "https://atcoder.jp/contests/AGC053/tasks/agc053_c"
+    },
+    {
+      "id": "agc053_d",
+      "label": "D",
+      "title": "Everyone is a winner",
+      "url": "https://atcoder.jp/contests/AGC053/tasks/agc053_d"
+    },
+    {
+      "id": "agc053_e",
+      "label": "E",
+      "title": "More Peaks More Fun",
+      "url": "https://atcoder.jp/contests/AGC053/tasks/agc053_e"
+    },
+    {
+      "id": "agc053_f",
+      "label": "F",
+      "title": "ESPers",
+      "url": "https://atcoder.jp/contests/AGC053/tasks/agc053_f"
+    }
+  ]
+}

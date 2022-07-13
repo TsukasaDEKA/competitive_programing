@@ -2,7 +2,6 @@ import sys
 from io import StringIO
 import unittest
 
-
 class TestClass(unittest.TestCase):
     def assertIO(self, input, output):
         stdout, stdin = sys.stdout, sys.stdin
@@ -45,6 +44,7 @@ class TestClass(unittest.TestCase):
         output = """3"""
         self.assertIO(input, output)
 
+from collections import defaultdict
 class UnionFind():
   def __init__(self, n):
     self.n = n
@@ -91,7 +91,13 @@ class UnionFind():
     return len(self.roots())
 
   def all_group_members(self):
-    return {r: self.members(r) for r in self.roots()}
+    agg = defaultdict(list)
+    for i in range(self.n):
+      if self.parents[i] < 0:
+        agg[i].append(i)
+      else:
+        agg[self.parents[i]].append(i)
+    return agg
 
   def __str__(self):
     return '\n'.join('{}: {}'.format(r, self.members(r)) for r in self.roots())
@@ -99,13 +105,13 @@ class UnionFind():
 def resolve():
   N, M = map(int, input().split(" "))
   # friends = [None] * (N + 1)
-  friends = UnionFind(N)
+  uf = UnionFind(N)
 
   for _ in range(M):
     A, B = [int(x)-1 for x in input().split(" ")]
-    friends.union(A, B)
+    uf.union(A, B)
 
-  print(friends.roots())
+  print(uf.roots())
   # print(min(friends.parents)*(-1))
 
 # if __name__ == "__main__":

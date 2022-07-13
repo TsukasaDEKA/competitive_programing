@@ -10,7 +10,7 @@ def get_primes(n):
     for t in range(i*i, n+1, i): prime[t] = False
   return prime
 
-sample = 10**8
-get_primes(sample)
-# [i for i, is_prime in enumerate(get_primes(sample)) if is_prime]
+sample = 10**6
+# get_primes(sample)
+print([i for i, is_prime in enumerate(get_primes(sample)) if is_prime])
 

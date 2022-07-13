@@ -2,7 +2,6 @@ import sys
 from io import StringIO
 import unittest
 
-
 class TestClass(unittest.TestCase):
     def assertIO(self, input, output):
         stdout, stdin = sys.stdout, sys.stdin

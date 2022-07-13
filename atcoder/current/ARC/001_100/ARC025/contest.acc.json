@@ -1,0 +1,38 @@
+{
+  "contest": {
+    "id": "ARC025",
+    "title": "AtCoder Regular Contest 025",
+    "url": "https://atcoder.jp/contests/ARC025"
+  },
+  "tasks": [
+    {
+      "id": "arc025_1",
+      "label": "A",
+      "title": "ゴールドラッシュ",
+      "url": "https://atcoder.jp/contests/ARC025/tasks/arc025_1"
+    },
+    {
+      "id": "arc025_2",
+      "label": "B",
+      "title": "チョコレート",
+      "url": "https://atcoder.jp/contests/ARC025/tasks/arc025_2",
+      "directory": {
+        "path": "b",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc025_3",
+      "label": "C",
+      "title": "ウサギとカメ",
+      "url": "https://atcoder.jp/contests/ARC025/tasks/arc025_3"
+    },
+    {
+      "id": "arc025_4",
+      "label": "D",
+      "title": "コンセント",
+      "url": "https://atcoder.jp/contests/ARC025/tasks/arc025_4"
+    }
+  ]
+}

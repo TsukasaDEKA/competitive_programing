@@ -29,16 +29,21 @@ class TestClass(unittest.TestCase):
 
 def resolve():
   inf = 10**18+1
-  N = int(input())
-  N, K = map(int, input().split(" "))
-  A = [[int(x)+i, i-int(x)] for i, x in enumerate(input().split(" "))]
-  A = [int(x) for x in input().split(" ")]
-  A = [int(input()) for _ in range(N)]
-  A = [[int(x) for x in input().split(" ")] for _ in range(N)]
-  S = list(input())
-  S_map = [list(input()) for _ in range(H)]
+  N, M = map(int, input().split(" "))
 
-  print()
+  if N == 1 and M == 0:
+    print(1, 2)
+    return
+
+  if N-M-2 < 0 or M < 0:
+    print(-1)
+    return
+
+  ans = [[i*2, i*2+1] for i in range(1, N+1)]
+  ans[M+1][0] = 1
+
+  for a in ans:
+    print(*a)
 
 import sys
 if sys.argv[-1] == './Main.py':

@@ -32,32 +32,43 @@ KVOHEEMSOZZASHENDIGOJRTJVMVSDWW"""
 231364016"""
         self.assertIO(input, output)
 
+    def test_Sample_Input_2(self):
+        input = """1
+6
+ABCZAZ"""
+        output = """29"""
+        self.assertIO(input, output)
+
 def resolve():
   alpha2num = lambda c: ord(c) - ord('A')
-
   mod = 998244353
-  inf = 10**18+1
-  # 前から決めていける。
-  # i 番目の文字と N-i 番目の文字は一緒
-  # S[i] <= S[N-i] の時、特に気にする必要はない。
-  # S[i] > S[N-i] の時、それ以降の or 以前のどこかで辞書順で小さくなる必要がある。
-  # X[i] < S[i] の時、他の文字は回文であれば自由に選べる。
-  # 
+
   T = int(input())
   for _ in range(T):
     N = int(input())
-    S = [alpha2num(x) for x in list(input())]
-    # N = (len(S)+1)//2
-    ans = 1
-    for i in range((N+1)//2):
-      if S[i] <= S[N-1-i]:
-        ans+=S[i]*pow(26, (N+1)//2-i-1)
-      else:
-        ans+=
-      if ans >= mod: ans %= mod
-    print(ans)
+    S = [x for x in list(input())]
 
-  print()
+    # S の前半分を反転した回文を X_ とする。
+    # X_ よりも辞書順で小さい回文は S よりも小さい。
+    # X_ が S よりも小さいとは限らない点に注意する。
+    X_ = [S[min(i, N-1-i)] for i in range(N)]
+
+    ans = 0
+    # X_ 未満の回文の個数を数える。
+    # L: 回文の前半分の長さ ( N が奇数の場合は真ん中の文字を含む。)
+    L = (N+1)//2
+    for i in range(L):
+      # alpha2num(X_[i]): X_[i] よりも小さな文字の個数。
+      # X[i] を X_[i] 未満にすると、それ以降の文字は回文という条件を満たす限り自由に選べる
+      # => 26**<残りの自由に選べる文字数> を答えに足す。
+      ans += alpha2num(X_[i]) * pow(26, L-i-1, mod)
+      if ans >= mod: ans%=mod
+
+    # X_ が条件を満たす場合、X_ 分も答えに追加する。
+    if "".join(X_) <= "".join(S):
+      ans += 1
+
+    print(ans%mod)
 
 import sys
 if sys.argv[-1] == './Main.py':

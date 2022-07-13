@@ -1,4 +1,7 @@
-from collections import Counter
-import numpy as np
-from scipy.sparse.csgraph import connected_components
-from scipy.sparse import csr_matrix
+from_ = 1657689730
+offset = 60*60*(24*3+15)
+duration = 60*60*24*7
+
+startAt = (from_ - offset)//duration*duration + offset
+
+print(startAt)
