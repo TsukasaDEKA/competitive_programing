@@ -1,5 +1,5 @@
 {
-  "python.defaultInterpreterPath": "/usr/local/Caskroom/miniconda/base/envs/py35/bin/python",
+  "python.defaultInterpreterPath": "/usr/local/Caskroom/miniconda/base/envs/atcoder/bin/python",
   "code-runner.runInTerminal": true,
   "code-runner.executorMap": {
 		// "python" : "$pythonPath -u $fullFileName",
