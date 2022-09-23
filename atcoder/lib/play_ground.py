@@ -1,1 +1,3 @@
-print([1] < [1, 2])
+from math import acos
+
+print(acos(3.9))

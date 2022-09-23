@@ -51,12 +51,12 @@ def resolve():
   inf = 10**18+1
   N = int(input())
   N, K = map(int, input().split(" "))
-  A = [[int(x)+i, i-int(x)] for i, x in enumerate(input().split(" "))]
   A = [int(x) for x in input().split(" ")]
   A = [int(input()) for _ in range(N)]
   A = [[int(x) for x in input().split(" ")] for _ in range(N)]
   S = list(input())
   S_map = [list(input()) for _ in range(H)]
+
 
   print()
 

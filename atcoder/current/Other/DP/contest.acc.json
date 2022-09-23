@@ -9,7 +9,12 @@
       "id": "dp_a",
       "label": "A",
       "title": "Frog 1",
-      "url": "https://atcoder.jp/contests/dp/tasks/dp_a"
+      "url": "https://atcoder.jp/contests/dp/tasks/dp_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     },
     {
       "id": "dp_b",
@@ -81,7 +86,12 @@
       "id": "dp_m",
       "label": "M",
       "title": "Candies",
-      "url": "https://atcoder.jp/contests/dp/tasks/dp_m"
+      "url": "https://atcoder.jp/contests/dp/tasks/dp_m",
+      "directory": {
+        "path": "m",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     },
     {
       "id": "dp_n",

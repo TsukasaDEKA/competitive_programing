@@ -155,7 +155,6 @@ def resolve():
     if T==0:
       if X%2: V *= -1
       uf.union(X, Y, V)
-
     else:
       if uf.same(X, Y):
         diff = uf.diff(X, Y)

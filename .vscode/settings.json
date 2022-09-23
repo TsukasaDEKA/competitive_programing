@@ -5,11 +5,16 @@
 		// "python" : "$pythonPath -u $fullFileName",
     "python" : "oj test -c '$pythonPath $fullFileName' -d $dir/tests",
     "typescript" : "oj test -c 'ts-node $fullFileName' -d $dir/tests",
+    "cpp" : "cd $dir && g++ $fileName -o main && oj test -c $dir/main -d $dir/tests",
   },
   "command-runner.terminal.name": "runCommand",
   "command-runner.terminal.autoClear": false,
   "command-runner.terminal.autoFocus": true,
   "command-runner.commands": {
     "echo env": "which ${pythonPath}",
+  },
+  "files.associations": {
+    "iostream": "cpp",
+    "cstddef": "cpp"
   }
 }

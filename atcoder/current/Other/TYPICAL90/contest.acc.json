@@ -421,7 +421,12 @@
       "id": "typical90_bp",
       "label": "068",
       "title": "Paired Information（★5）",
-      "url": "https://atcoder.jp/contests/TYPICAL90/tasks/typical90_bp"
+      "url": "https://atcoder.jp/contests/TYPICAL90/tasks/typical90_bp",
+      "directory": {
+        "path": "068",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     },
     {
       "id": "typical90_bq",

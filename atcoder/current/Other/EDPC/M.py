@@ -71,17 +71,12 @@ def resolve():
   for i in range(1, N):
     integral = [0]*(K+2)
     integral[1:] = accumulate(dp[i-1])
-    # for j in range(K+1):
-    #   integral[j+1] = integral[j]+dp[i-1][j]
-    #   if integral[j+1] > mod: integral[j+1]%=mod
     for j in range(K+1):
       dp[i][j] = integral[min(K+1, j+A[i]+1)] - integral[j]
       if dp[i][j] > mod or dp[i][j] < mod: dp[i][j]%=mod
-  # print(*dp, sep="\n")
   print(dp[-1][0])
 
 # resolve()
-
 
 if __name__ == "__main__":
     unittest.main()
