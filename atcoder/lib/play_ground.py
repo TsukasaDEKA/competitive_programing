@@ -1,3 +1,3 @@
-from math import acos
+alpha2num = lambda c: ord(c) - ord('A')
 
-print(acos(3.9))
+print(alpha2num("Z"))

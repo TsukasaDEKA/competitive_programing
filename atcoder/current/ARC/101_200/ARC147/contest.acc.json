@@ -1,0 +1,55 @@
+{
+  "contest": {
+    "id": "ARC147",
+    "title": "AtCoder Regular Contest 147",
+    "url": "https://atcoder.jp/contests/ARC147"
+  },
+  "tasks": [
+    {
+      "id": "arc147_a",
+      "label": "A",
+      "title": "Max Mod Min",
+      "url": "https://atcoder.jp/contests/ARC147/tasks/arc147_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc147_b",
+      "label": "B",
+      "title": "Swap to Sort",
+      "url": "https://atcoder.jp/contests/ARC147/tasks/arc147_b",
+      "directory": {
+        "path": "b",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
+    },
+    {
+      "id": "arc147_c",
+      "label": "C",
+      "title": "Min Diff Sum",
+      "url": "https://atcoder.jp/contests/ARC147/tasks/arc147_c"
+    },
+    {
+      "id": "arc147_d",
+      "label": "D",
+      "title": "Sets Scores",
+      "url": "https://atcoder.jp/contests/ARC147/tasks/arc147_d"
+    },
+    {
+      "id": "arc147_e",
+      "label": "E",
+      "title": "Examination",
+      "url": "https://atcoder.jp/contests/ARC147/tasks/arc147_e"
+    },
+    {
+      "id": "arc147_f",
+      "label": "F",
+      "title": "Again ABC String",
+      "url": "https://atcoder.jp/contests/ARC147/tasks/arc147_f"
+    }
+  ]
+}

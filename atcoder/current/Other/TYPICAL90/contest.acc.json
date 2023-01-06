@@ -193,7 +193,12 @@
       "id": "typical90_ad",
       "label": "030",
       "title": "K Factors（★5）",
-      "url": "https://atcoder.jp/contests/TYPICAL90/tasks/typical90_ad"
+      "url": "https://atcoder.jp/contests/TYPICAL90/tasks/typical90_ad",
+      "directory": {
+        "path": "030",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     },
     {
       "id": "typical90_ae",

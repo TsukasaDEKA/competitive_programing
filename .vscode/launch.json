@@ -7,7 +7,7 @@
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
-      "python": "/usr/local/Caskroom/miniconda/base/envs/atcoder/bin/python",
+      "python": "/opt/miniconda3/envs/kyopro/bin/python",
       "cwd": "${fileDirname}",
     }
   ]

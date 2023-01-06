@@ -49,7 +49,6 @@ def resolve():
     # connection = 'strong' で強連結 (相互移動可能)
     return connected_components(graph, directed=directed, connection=connection)
 
-
   inf = 10**18+1
   from collections import Counter
   N, M = map(int, input().split(" "))
